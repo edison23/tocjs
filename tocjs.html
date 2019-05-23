@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>TOCjs</title>
+        <script src="assets/jquery-3.4.1.min.js" type="text/javascript"></script>
+    	<script src="assets/tocjs.js" type="text/javascript"></script>
+    	 <link rel="stylesheet" type="text/css" href="assets/tocjs.css"></script>
+    </head>
+
+    <body>
+        <h1 id="toolName">TOCjs - Javascript generator of a table of contents from HTML document</h1>
+        <p>Insert your HTML source code of your document into the field below and click the button <em>Generate TOC</em>. This generates nested ordered lists of the headings found in the document. The items in the lists are links to the headings. These links use IDs of the headings which are either added to each heading tag if there was none before, or are used the existing ones if there was ID already.</p>
+        <p>In the output section, you will find the generated TOC rendered as HTML as well as inserted into the textarea as a HTML source and in the textarea below, you'll find your document with the TOC and with the IDs added to the document (if there were any heading tags missing the ID attribute).</p>
+        <p>To use the output of this tool, copy the source code of your document with the heading IDs back to where you use your document, or just add the source of the generate TOC to your document in case you had all the IDs in the document already.</p>
+        <h2>Input</h2>
+        <textarea id="input" placeholder="Insert your HTML document here"></textarea>
+        <h3>Options</h3>
+        <form>
+        	<p>Which type of a list do you wish to use for the TOC?</p>
+        	<input type="radio" name="list-type" value="ul" />Unsorted<br>
+        	<input type="radio" name="list-type" value="ol" checked="true" />Sorted<br>
+        	<p>Would you like to prepend something to the anchors (heading IDs)?</p>
+        	<input type="text" name="anchor-prepend" placeholder="https://example.org/my-page.html" />
+        </form>
+		<button id="createTOC" onclick="createTOC();">Create TOC</button>
+		<h2>Output</h2>
+		<h3>The generated TOC</h3>
+        <div id="output-html"><span class="placeholder">Your generated TOC will appear here</div>
+        <h3>A source code of the generated TOC</h3>
+        <textarea id="output-src" placeholder="A source code of the generated TOC will appear here"></textarea>
+        <h3>A source code of your document with heading IDs and the generated TOC</h3>
+        <textarea id="output-doc-src" placeholder="A source code of your document with heading IDs and the generated TOC will appear here"></textarea>
+    </body>
+
+</html>

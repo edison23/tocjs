@@ -1,0 +1,46 @@
+@import url('./assets/nunito-light-webfont.ttf');
+body {
+	font-family: 'Nunito', sans-serif;
+	max-width: 1000px;
+	padding: 2em;
+	margin: 0 auto;
+}
+
+#toolName {
+	text-align: center;
+	margin: 0.5em 0 2em 0;
+}
+
+#input, #output-src, #output-doc-src{
+	width: 100%;
+	height: 20em;
+}
+
+#output-html {
+	width: calc(100%-2em);
+	border: 1px solid #d7d7d7;
+	margin: 2em 0 2em 0;
+	padding: 1em;
+}
+
+#createTOC {
+	display: block;
+	width: 250px;
+	background-color: #72c832;
+	color: #243f10;
+	font-size: 1.5em;
+	padding: 0.6em;
+	margin: 1em auto;
+	border: none;
+	border-radius: 6px;
+}
+
+.warning {
+	font-size: 1.5em;
+	color: #BB1111;
+	text-align: center;
+}
+
+input[type=text] {
+	width: 100%;
+}
