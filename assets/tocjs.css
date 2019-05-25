@@ -33,6 +33,11 @@ body {
 	margin: 1em auto;
 	border: none;
 	border-radius: 6px;
+	cursor: pointer;
+}
+
+#createTOC:hover {
+	box-shadow: 0 0 6px #aaa;
 }
 
 .warning {

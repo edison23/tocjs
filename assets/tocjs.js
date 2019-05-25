@@ -86,12 +86,13 @@ function createTOC() {
     }
     var input = $("#input").val();
     // var tocCount = 0;
-    var docWithIDs = input.replace(/<h([1-6])([\s\S]*?)>([\s\S]*?)(<br\/>)?<\/h[1-6]>/g, addIDs);
+    var docWithIDs = input.replace(/<h([1-6])([\s\S]*?)>([\s\S]*?)(<br\/?>)?<\/h[1-6]>/g, addIDs);
     var headings = docWithIDs.match(/<h[1-6][\s\S]*?<\/h[1-6]>/g);
     var headLvl = 0;
     var finTOC = "";
     var listType = $("input[type=radio][name=list-type]:checked").val();
     for (i = 0; i < headings.length; i++ ) {
+        headings[i] = headings[i].replace(/[\r\n]*/g, '');
         var hID = headings[i].match(/id="(.*?)"/)
         var hLvl = headings[i].match(/<h([1-6])/)
         var hContent = headings[i].match(/<h[1-6].*?">([\s\S]*?)<\/h[1-6]>/);
