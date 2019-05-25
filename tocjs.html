@@ -4,16 +4,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>TOCjs</title>
+        <link rel="shortcut icon" href="assets/logo.png" />
+        <link rel="apple-touch-icon" href="assets/logo.png" />
         <script src="assets/jquery-3.4.1.min.js" type="text/javascript"></script>
     	<script src="assets/tocjs.js" type="text/javascript"></script>
     	 <link rel="stylesheet" type="text/css" href="assets/tocjs.css"></script>
     </head>
 
     <body>
-        <h1 id="toolName">TOCjs - Javascript generator of a table of contents from HTML document</h1>
-        <p>Insert your HTML source code of your document into the field below and click the button <em>Generate TOC</em>. This generates nested ordered lists of the headings found in the document. The items in the lists are links to the headings. These links use IDs of the headings which are either added to each heading tag if there was none before, or are used the existing ones if there was ID already.</p>
-        <p>In the output section, you will find the generated TOC rendered as HTML as well as inserted into the textarea as a HTML source and in the textarea below, you'll find your document with the TOC and with the IDs added to the document (if there were any heading tags missing the ID attribute).</p>
-        <p>To use the output of this tool, copy the source code of your document with the heading IDs back to where you use your document, or just add the source of the generate TOC to your document in case you had all the IDs in the document already.</p>
+    	<img id="toolLogo" src="assets/header-logo.svg" />
+        <h1 id="toolName"><span style="visibility: hidden;">TOCjs </span>A JavaScript Generator of a Table of Contents from an HTML Document</h1>
+        <p>Insert an HTML source code of your document into the <em>Input</em> textarea below and click the button <em>Generate TOC</em>. This generates nested ordered lists of the headings found in the document. The items in the lists are links to the headings. These links use IDs of the headings (called anchors). Those are either added to each heading tag if there was no ID before; the existing IDs are used as is.</p>
+        <p>Please note the IDs are generated from the content of the headings so there must not be two identical headings for the anchors to work correctly.</p>
+        <p>In the <em>Output</em> section, you will find the generated TOC rendered as HTML as well as inserted into the textarea as an HTML source. In the textarea below, you'll find your document with the TOC and corresponding IDs added to the document (if there were any heading tags missing the ID attribute).</p>
+        <p>In the section <em>Options</em>, you can choose which type of lists you would like the tool to use and you can set a string to be prepended before the IDs of the headings. This can be, for example, a URL of the page in case you want to use the TOC in some other page.</p>
+        <p>To use the output of this tool, copy the source code of your document with the heading IDs back to where you use your document, or just add the source of the generated TOC to your document in case you had all the IDs in the document already. You can also copy the TOC to the document with the IDs from the visual output if you have a WYSIWYG editor.</p>
         <h2>Input</h2>
         <textarea id="input" placeholder="Insert your HTML document here"></textarea>
         <h3>Options</h3>
