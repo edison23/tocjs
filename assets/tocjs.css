@@ -4,11 +4,21 @@ body {
 	max-width: 1000px;
 	padding: 2em;
 	margin: 0 auto;
+	color: #505050;
+	font-size: 17px;
 }
 
 #toolName {
 	text-align: center;
 	margin: 0.5em 0 2em 0;
+	font-size: 1.6em;
+}
+
+#toolLogo {
+	display: block;
+	margin: 0 auto;
+	width: 90%;
+	max-width: 400px;
 }
 
 #input, #output-src, #output-doc-src{
