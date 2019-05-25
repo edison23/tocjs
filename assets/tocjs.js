@@ -13,23 +13,22 @@ function normalizeString(str) {
     return normalized;
 }
 
-// res: variable which is to be writtent to; curLvl: heading level we've just reached; prevLvl: heading level we've been at with the last heading; listType: sorted or unsorted
+// finTOC: the variable which is to be writtent to; curLvl: heading level we've just reached; prevLvl: heading level we've been at with the last heading; listType: sorted or unsorted
 // logic: if curLvl is higher than prevLvl, a new list needs to be opened; if lower, than the current list needs to be closed;
-function openCloseList(res, curLvl, prevLvl, listType) {
+function openCloseList(finTOC, curLvl, prevLvl, listElement) {
     // cur-prev = + --> new nested list needed
     // cur-prev = - --> close current list
     // cur-prev = 0 --> no action needed
-    var listElement = listType;
     diff = curLvl - prevLvl;
     if (diff > 0) {
         // a new list needs to be opened
-        res += '<' + listElement + '>'.repeat(diff);
+        finTOC += ('<' + listElement + '>').repeat(diff);
     }
     if (diff < 0) {
         // the current list needs to be closed
-        res += '</' + listElement + '>'.repeat(Math.abs(diff));
+        finTOC += ('</' + listElement + '>').repeat(Math.abs(diff));
     }
-    return res;
+    return finTOC;
 }
 
 // This function was taken from https://codepen.io/davidkacha/pen/zzNBxq 
