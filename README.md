@@ -1,4 +1,5 @@
-# TOCjs - A JavaScript Generator of a Table of Contents from an HTML Document
+![TOCjs logo](assets/header-logo.svg)
+# A JavaScript Generator of a Table of Contents from an HTML Document
 This tool crawles an HTML source code for heading tags and creates structured table of contents using either sorted or unsorted lists.
 
 It uses JavaScript with jQuery for the processing of the document and HTML with CSS for the tool's frontend. Everything is pulled locally, no Internet connection is required for the tool to work.
