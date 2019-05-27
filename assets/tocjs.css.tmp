@@ -1,17 +1,12 @@
+/*@import url('assets/nunito-light.ttf');*/
+/*@import url('https://fonts.googleapis.com/css?family=Nunito:300,300i,400&display=swap');*/
+
 @font-face {
   font-family: 'Nunito Light';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('Nunito-Light.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Nunito Light Italic';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('Nunito-LightItalic.ttf') format('truetype');
+  src: url('/home/edison23/Documents/tocjs/tocjs-master/assets/Nunito-Light.ttf') format('truetype');
 }
 
 body {
