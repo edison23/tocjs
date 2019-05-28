@@ -74,3 +74,9 @@ body {
 input[type=text] {
 	width: 100%;
 }
+
+#attribution {
+	text-align: center;
+	margin-top: 5em;
+	font-size: 0.7em;
+}
