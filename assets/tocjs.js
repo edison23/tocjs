@@ -111,7 +111,7 @@ function createTOC() {
     finTOC = prettifyHTML(finTOC);
     $('#output-html').html(finTOC);
     $('#output-src').val(finTOC);
-    $('#output-doc-src').val(finTOC + '\n' + docWithIDs)
+    $('#output-doc-src').val(finTOC + '\n' + prettifyHTML(docWithIDs))
 }
 
 // Docs
