@@ -79,27 +79,34 @@ function prettifyHTML(html) {
 }; 
 
 function createTOC() {
-    if ( !$('#input').val() ) {
-        $('#output-html').html('<p class="warning">Please insert your document into the input text area first.');
-        return null;
+    try {
+        if ( !$('#input').val() ) {
+            $('#output-html').html('<p class="warning">Please insert your document into the input text area first.');
+            return null;
+        }
+        var input = $("#input").val();
+        // var tocCount = 0;
+        var docWithIDs = input.replace(/<h([1-6])([\s\S]*?)>([\s\S]*?)(<br\/?>)?<\/h[1-6]>/g, addIDs);
+        var headings = docWithIDs.match(/<h[1-6][\s\S]*?<\/h[1-6]>/g);
+        var headLvl = 0;
+        var finTOC = "";
+        var listType = $("input[type=radio][name=list-type]:checked").val();
+        for (i = 0; i < headings.length; i++ ) {
+            headings[i] = headings[i].replace(/[\r\n]*/g, '');
+            var hID = headings[i].match(/id="(.*?)"/)
+            var hLvl = headings[i].match(/<h([1-6])/)
+            var hContent = headings[i].match(/<h[1-6].*?">([\s\S]*?)<\/h[1-6]>/);
+            var anchorPrepend = $('input[type=text][name=anchor-prepend]').val();
+            hContent[1] = hContent[1].replace(/<[\s\S]*?>/g, '');
+            finTOC = openCloseList(finTOC, hLvl[1], headLvl, listType);
+            finTOC += '<li><a href="'+ anchorPrepend + '#' + hID[1] + '">' + hContent[1] + '</a></li>';
+            headLvl = hLvl[1];
+        }
     }
-    var input = $("#input").val();
-    // var tocCount = 0;
-    var docWithIDs = input.replace(/<h([1-6])([\s\S]*?)>([\s\S]*?)(<br\/?>)?<\/h[1-6]>/g, addIDs);
-    var headings = docWithIDs.match(/<h[1-6][\s\S]*?<\/h[1-6]>/g);
-    var headLvl = 0;
-    var finTOC = "";
-    var listType = $("input[type=radio][name=list-type]:checked").val();
-    for (i = 0; i < headings.length; i++ ) {
-        headings[i] = headings[i].replace(/[\r\n]*/g, '');
-        var hID = headings[i].match(/id="(.*?)"/)
-        var hLvl = headings[i].match(/<h([1-6])/)
-        var hContent = headings[i].match(/<h[1-6].*?">([\s\S]*?)<\/h[1-6]>/);
-        var anchorPrepend = $('input[type=text][name=anchor-prepend]').val();
-        hContent[1] = hContent[1].replace(/<[\s\S]*?>/g, '');
-        finTOC = openCloseList(finTOC, hLvl[1], headLvl, listType);
-        finTOC += '<li><a href="'+ anchorPrepend + '#' + hID[1] + '">' + hContent[1] + '</a></li>';
-        headLvl = hLvl[1];
+    catch(err) {
+        alert('The script failed to complete with the following error:\n\n' + err + '\n\nThe error stack:\n' + err.stack);
+        // $('#output-html').html('<p class="warning">The script failed to complete with the following error:<br>' + err);
+        console.log('The script failed to complete with the following error:\n' + err);
     }
     finTOC = prettifyHTML(finTOC);
     $('#output-html').html(finTOC);
@@ -113,3 +120,4 @@ function createTOC() {
 // vic nez sest urovni nadpisu nepodporujeme :)
 // existujici ID se zachovava, klasy a ostatni sracky v h-tags se taky zachovaji, 
 // viceradkovy obsah hacek se taky zachovava
+// dva nadpisy nesmi mit stejny obsah, jinak jejich anchor bude skakat na prvni vyskyt
