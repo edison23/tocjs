@@ -26,7 +26,7 @@
         <h2>Input</h2>
         <textarea id="input" placeholder="Insert your HTML document here"></textarea>
         <h3>Options</h3>
-        <form>
+        <form onsubmit="return createTOC(event.preventDefault());">
         	<p>Which type of a list do you wish to use for the TOC?</p>
         	<input type="radio" name="list-type" value="ul" />Unsorted<br>
         	<input type="radio" name="list-type" value="ol" checked="true" />Sorted<br>
