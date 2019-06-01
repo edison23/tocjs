@@ -105,8 +105,7 @@ function createTOC() {
     }
     catch(err) {
         alert('The script failed to complete with the following error:\n\n' + err + '\n\nThe error stack:\n' + err.stack);
-        // $('#output-html').html('<p class="warning">The script failed to complete with the following error:<br>' + err);
-        console.log('The script failed to complete with the following error:\n' + err);
+        console.log('The script failed to complete with the following error:\n\n' + err + '\n\nThe error stack:\n' + err.stack);
     }
     finTOC = prettifyHTML(finTOC);
     $('#output-html').html(finTOC);
