@@ -1,4 +1,5 @@
 function addIDs(match, hLvl, hTags, hContent, offset, string) {
+    // Strip the whitespaces to prevent error where obviously the hContentClean is returned with none
     hContentClean = hContent.replace(/<[\s\S]*?>/g, '');
     if ( ! hTags.match('id=') ) {
         hTags += ' id="' + normalizeString(hContentClean) + '"';
@@ -8,7 +9,7 @@ function addIDs(match, hLvl, hTags, hContent, offset, string) {
 
 function normalizeString(str) {
     // var normalized = str.replace(/[^\w]/g, "-");
-    var normalized = str.replace(/[\;\ \/\?\:\@\&\=\+\$\,\{\}\\\^\[\]\`\%\&\#\!]/g, "-");
+    var normalized = str.replace(/[\;\ \/\?\:\@\&\=\+\$\,\{\}\\\^\[\]\`\%\&\#\!\)\()]/g, "-");
     normalized = normalized.toLowerCase();
     return normalized;
 }
