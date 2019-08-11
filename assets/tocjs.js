@@ -64,19 +64,29 @@ function prettifyHTML(html) {
                     formatHtml += setTabs() + $(el).text().trim() + '\n';
                 }    
             } else {
-                var innerHTML = $(el).html().trim();
-                $(el).html(innerHTML.replace('\n', '').replace(/ +(?= )/g, ''));
-                
+                // this condition was an attempt to exclude the contents of <pre> tags from processing but it turns out the innerHTML of the tag 
+                // is already stripped from the newlines and whitespace.. and I don't really know what to do about it so I'll temporarily
+                // just disable the whole prettifying function and won't process the document with it at all (except for the new TOC)
+                if (el.nodeName != 'PRE') {
+                    var innerHTML = $(el).html().trim();
+                    $(el).html(innerHTML.replace('\n', '').replace(/ +(?= )/g, ''));
+                    
 
-                if ($(el).children().length) {
-                    $(el).html('\n' + parse(innerHTML, (tab + 1)) + setTabs());
-                    var outerHTML = $(el).prop('outerHTML').trim();
-                    formatHtml += setTabs() + outerHTML + '\n'; 
+                    if ($(el).children().length) {
+                        $(el).html('\n' + parse(innerHTML, (tab + 1)) + setTabs());
+                        var outerHTML = $(el).prop('outerHTML').trim();
+                        formatHtml += setTabs() + outerHTML + '\n'; 
 
-                } else {
-                    var outerHTML = $(el).prop('outerHTML').trim();
-                    formatHtml += setTabs() + outerHTML + '\n';
-                }      
+                    } else {
+                        var outerHTML = $(el).prop('outerHTML').trim();
+                        formatHtml += setTabs() + outerHTML + '\n';
+                    } 
+                }  
+                else {
+                    var innerHTML = el.innerHTML;
+                    // var outerHTML = $(el).prop('outerHTML');
+                    formatHtml += innerHTML + '\n';
+                }
             }
         });
 
@@ -118,8 +128,10 @@ function createTOC() {
     }
     finTOC = prettifyHTML(finTOC);
     $('#output-html').html(finTOC);
-    $('#output-src').val(finTOC);
-    $('#output-doc-src').val(finTOC + '\n' + prettifyHTML(docWithIDs))
+    // $('#output-src').val(finTOC);
+    // disabled the prettifier here because it was screwing up the <pre> tags (details in the function definition above)
+    // $('#output-doc-src').val(finTOC + '\n' + prettifyHTML(docWithIDs));
+    $('#output-doc-src').val(finTOC + '\n' + docWithIDs);
 }
 
 // Docs
