@@ -128,7 +128,7 @@ function createTOC() {
     }
     finTOC = prettifyHTML(finTOC);
     $('#output-html').html(finTOC);
-    // $('#output-src').val(finTOC);
+    $('#output-src').val(finTOC);
     // disabled the prettifier here because it was screwing up the <pre> tags (details in the function definition above)
     // $('#output-doc-src').val(finTOC + '\n' + prettifyHTML(docWithIDs));
     $('#output-doc-src').val(finTOC + '\n' + docWithIDs);
