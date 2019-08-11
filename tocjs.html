@@ -15,7 +15,7 @@
     	<img id="toolLogo" src="assets/header-logo.svg" />
         <h1 id="toolName"><span style="visibility: hidden;">TOCjs </span>A JavaScript Generator of a Table of Contents from an HTML Document</h1>
 	<h2>Usage documentation</h2>
-        <p>Insert an HTML source code of your document into the <em>Input</em> textarea below and click the button <em>Generate TOC</em>. This generates nested ordered lists of the headings found in the document. The items in the lists are links to the headings. These links use IDs of the headings (called anchors). Those are either added to each heading tag if there was no ID before; the existing IDs are used as is.</p>
+        <p>Insert an HTML source code of your document into the <em>Input</em> textarea below and click the button <em>Generate TOC</em>. This generates nested ordered lists of the headings found in the document. The items in the lists are links to the headings. These links use IDs of the headings (called anchors). Those are either added to each heading tag if there was no ID before; the existing IDs are used as is unless you check the <em>Overwrite existing anchors</em> checkbox.</p>
         <p>Please note the IDs are generated from the content of the headings so there must not be two identical headings for the anchors to work correctly.</p>
         <p>In the <em>Output</em> section, you will find the generated TOC rendered as HTML as well as inserted into the textarea as an HTML source. In the textarea below, you'll find your document with the TOC and corresponding IDs added to the document (if there were any heading tags missing the ID attribute).</p>
         <p>In the section <em>Options</em>, you can choose which type of lists you would like the tool to use and you can set a string to be prepended before the IDs of the headings. This can be, for example, a URL of the page in case you want to use the TOC in some other page.</p>
@@ -30,6 +30,8 @@
         	<p>Which type of a list do you wish to use for the TOC?</p>
         	<input type="radio" name="list-type" value="ul" />Unsorted<br>
         	<input type="radio" name="list-type" value="ol" checked="true" />Sorted<br>
+            <p>In case your document already contains anchors (id="…") in the headings, should they be preserved, or overwritten with newly generated ones?</p>
+            <input type="checkbox" name="h-overwrite">Overwrite existing anchors
         	<p>Would you like to prepend something to the anchors (heading IDs)?</p>
         	<input type="text" name="anchor-prepend" placeholder="https://example.org/my-page.html" />
         </form>

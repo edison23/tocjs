@@ -1,9 +1,16 @@
 function addIDs(match, hLvl, hTags, hContent, offset, string) {
+    // checkbox whether to overwrite existing heading IDs - returns either false (if don't overwrite) or true (if overwrite)
+    var overWriteExistingIDs = $("input[type=checkbox][name=h-overwrite]").is(':checked');
+    
     // Strip the whitespaces to prevent error where obviously the hContentClean is returned with none
     hContentClean = hContent.replace(/<[\s\S]*?>/g, '');
-    if ( ! hTags.match('id=') ) {
+
+    // if the ID is not in the heading or we're instructed to overwrite it, delete the potentially existing ID and add a newly generated one
+    if ( ! hTags.match('id=') || overWriteExistingIDs == true ) {
+        hTags = hTags.replace(/id=".*?"/g, '');
         hTags += ' id="' + normalizeString(hContentClean) + '"';
     }
+
     return '<h' + hLvl + hTags + '>' + hContent + '</h' + hLvl + '>';
 }
 
@@ -91,6 +98,7 @@ function createTOC() {
         var headings = docWithIDs.match(/<h[1-6][\s\S]*?<\/h[1-6]>/g);
         var headLvl = 0;
         var finTOC = "";
+        // gets the value of the select radio button to choose list type (returns 'ol' or 'ul')
         var listType = $("input[type=radio][name=list-type]:checked").val();
         for (i = 0; i < headings.length; i++ ) {
             headings[i] = headings[i].replace(/[\r\n]*/g, '');
