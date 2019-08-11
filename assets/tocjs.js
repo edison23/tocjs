@@ -1,4 +1,4 @@
-function addIDs(match, hLvl, hTags, hContent, offset, string) {
+function addIDs(match, curHeadLvl, hTags, hContent, offset, string) {
     // checkbox whether to overwrite existing heading IDs - returns either false (if don't overwrite) or true (if overwrite)
     var overWriteExistingIDs = $("input[type=checkbox][name=h-overwrite]").is(':checked');
     
@@ -11,7 +11,7 @@ function addIDs(match, hLvl, hTags, hContent, offset, string) {
         hTags += ' id="' + normalizeString(hContentClean) + '"';
     }
 
-    return '<h' + hLvl + hTags + '>' + hContent + '</h' + hLvl + '>';
+    return '<h' + curHeadLvl + hTags + '>' + hContent + '</h' + curHeadLvl + '>';
 }
 
 function normalizeString(str) {
@@ -30,11 +30,11 @@ function openCloseList(finTOC, curLvl, prevLvl, listElement) {
     diff = curLvl - prevLvl;
     if (diff > 0) {
         // a new list needs to be opened
-        finTOC += ('<' + listElement + '>').repeat(diff);
+        finTOC += ('<' + listElement + '></li>').repeat(diff);
     }
     if (diff < 0) {
         // the current list needs to be closed
-        finTOC += ('</' + listElement + '>').repeat(Math.abs(diff));
+        finTOC += ('</' + listElement + '></li>').repeat(Math.abs(diff));
     }
     return finTOC;
 }
@@ -103,23 +103,30 @@ function createTOC() {
             return null;
         }
         var input = $("#input").val();
-        // var tocCount = 0;
+        var anchorPrepend = $('input[type=text][name=anchor-prepend]').val();
         var docWithIDs = input.replace(/<h([1-6])([\s\S]*?)>([\s\S]*?)(<br\/?>)?<\/h[1-6]>/g, addIDs);
         var headings = docWithIDs.match(/<h[1-6][\s\S]*?<\/h[1-6]>/g);
-        var headLvl = 0;
+        var prevHeadLvl = 0;
         var finTOC = "";
         // gets the value of the select radio button to choose list type (returns 'ol' or 'ul')
         var listType = $("input[type=radio][name=list-type]:checked").val();
         for (i = 0; i < headings.length; i++ ) {
             headings[i] = headings[i].replace(/[\r\n]*/g, '');
             var hID = headings[i].match(/id="(.*?)"/)
-            var hLvl = headings[i].match(/<h([1-6])/)
+            var endListItem = '';
+            var curHeadLvl = headings[i].match(/<h([1-6])/)
             var hContent = headings[i].match(/<h[1-6].*?">([\s\S]*?)<\/h[1-6]>/);
-            var anchorPrepend = $('input[type=text][name=anchor-prepend]').val();
             hContent[1] = hContent[1].replace(/<[\s\S]*?>/g, '');
-            finTOC = openCloseList(finTOC, hLvl[1], headLvl, listType);
-            finTOC += '<li><a href="'+ anchorPrepend + '#' + hID[1] + '">' + hContent[1] + '</a></li>';
-            headLvl = hLvl[1];
+            finTOC = openCloseList(finTOC, curHeadLvl[1], prevHeadLvl, listType);
+            // this ensures no <li> item is closed when there are child lists to be closed; in case sublists 
+            // are to be closed, closing the <li> item is handled in openCloseList, in case of new sublists, 
+            // the <li> item doesn't get closed until the child list is closed too (all child lists must be 
+            // childern of the parent <li> item)
+            if (curHeadLvl == prevHeadLvl) {
+                endListItem = '</li>'
+            }
+            finTOC += endListItem + '<li><a href="'+ anchorPrepend + '#' + hID[1] + '">' + hContent[1] + '</a>';
+            prevHeadLvl = curHeadLvl[1];
         }
     }
     catch(err) {
