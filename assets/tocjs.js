@@ -107,7 +107,12 @@ function createTOC() {
         var docWithIDs = input.replace(/<h([1-6])([\s\S]*?)>([\s\S]*?)(<br\/?>)?<\/h[1-6]>/g, addIDs);
         var headings = docWithIDs.match(/<h[1-6][\s\S]*?<\/h[1-6]>/g);
         var prevHeadLvl = 0;
-        var finTOC = "";
+        // Optional heading a user can desire for the TOC
+        var tocHeading = "";
+        if ($("#toc-heading").val()) {
+            tocHeading = "<h1>" + $("#toc-heading").val() + "</h1>";
+        }
+        var finTOC = tocHeading;
         // gets the value of the select radio button to choose list type (returns 'ol' or 'ul')
         var listType = $("input[type=radio][name=list-type]:checked").val();
         for (i = 0; i < headings.length; i++ ) {

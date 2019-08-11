@@ -34,6 +34,8 @@
             <input type="checkbox" name="h-overwrite">Overwrite existing anchors
         	<p>Would you like to prepend something to the anchors (heading IDs)?</p>
         	<input type="text" name="anchor-prepend" placeholder="https://example.org/my-page.html" />
+            <p>Should the TOC have some heading? (Leave blank for no heading)</p>
+            <input type="text" id="toc-heading" value="Table of Contents">
         </form>
 		<button id="createTOC" onclick="createTOC();">Create TOC</button>
 		<h2>Output</h2>
