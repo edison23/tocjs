@@ -138,12 +138,19 @@ function createTOC() {
         alert('The script failed to complete with the following error:\n\n' + err + '\n\nThe error stack:\n' + err.stack);
         console.log('The script failed to complete with the following error:\n\n' + err + '\n\nThe error stack:\n' + err.stack);
     }
+
+    var YYYYmmDD = new Date();
+    var today = YYYYmmDD.getFullYear() + '/' + (YYYYmmDD.getMonth()+1) + '/' + YYYYmmDD.getDate()
+    var commentAroundTOCstart = '<!-- ======= START OF TOC GENERATED ON '+ today + ' ======= -->'
+    var commentAroundTOCend = '<!-- ======= END OF TOC GENERATED ON '+ today + ' ======= -->'
+
     finTOC = prettifyHTML(finTOC);
     $('#output-html').html(finTOC);
     $('#output-src').val(finTOC);
     // disabled the prettifier here because it was screwing up the <pre> tags (details in the function definition above)
     // $('#output-doc-src').val(finTOC + '\n' + prettifyHTML(docWithIDs));
-    $('#output-doc-src').val(finTOC + '\n' + docWithIDs);
+
+    $('#output-doc-src').val(commentAroundTOCstart + '\n\n' + finTOC + '\n' + commentAroundTOCend + '\n\n' + docWithIDs);
 }
 
 // Docs
