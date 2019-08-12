@@ -1,22 +1,8 @@
-@font-face {
-  font-family: 'Nunito Light';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('Nunito-Light.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Nunito Light Italic';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('Nunito-LightItalic.ttf') format('truetype');
-}
+@import url('font-nunito-base64.css');
 
 body {
 	font-family: 'Nunito Light', sans-serif;
-	max-width: 1000px;
+	max-width: 1300px;
 	padding: 2em;
 	margin: 0 auto;
 	color: #505050;
@@ -24,8 +10,13 @@ body {
 }
 
 #toolName {
+	display: block;
+	max-width: 600px;
 	text-align: center;
-	margin: 0.5em 0 2em 0;
+	margin: 0em 0 2em 0;
+	margin: 0 auto 2em auto;
+	padding-bottom: 0.4em;
+	border-bottom: 3px solid #770600aa;
 	font-size: 1.6em;
 }
 
@@ -63,6 +54,19 @@ body {
 
 #createTOC:hover {
 	box-shadow: 0 0 6px #aaa;
+}
+
+p em {
+	font-style: normal;
+	font-weight: 600;
+	font-size: 0.94em;
+	color: #770600;
+}
+
+p code {
+	font-size: 0.85em;
+	font-family: monospace;
+	color: #770600;
 }
 
 .warning {
