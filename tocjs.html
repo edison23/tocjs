@@ -31,6 +31,15 @@
             <input type="checkbox" name="h-overwrite">Overwrite existing anchors
         	<p>Would you like to prepend something to the anchors (heading IDs)?</p>
         	<input type="text" name="anchor-prepend" placeholder="https://example.org/my-page.html" />
+            <p>What is the maximum heading level the TOC should contain?</p>
+            <select id="headingDepth">
+                <option value="1">Level 1</option>
+                <option value="2">Level 2</option>
+                <option value="3">Level 3</option>
+                <option value="4">Level 4</option>
+                <option value="5">Level 5</option>
+                <option value="6" selected>Level 6</option>
+            </select>
             <p>Should the TOC have some heading? (Leave blank for no heading)</p>
             <input type="text" id="toc-heading" value="Table of Contents">
         </form>

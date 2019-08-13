@@ -102,16 +102,22 @@ function createTOC() {
             $('#output-html').html('<p class="warning">Please insert your document into the input text area first.');
             return null;
         }
+        // get the original HTML document, strings to prepend the IDs with, maximum heading depth to go into, whether to overwrite
+        // potentially exising <hN> tags IDs and optional heading user desires above the TOC
         var input = $("#input").val();
         var anchorPrepend = $('input[type=text][name=anchor-prepend]').val();
-        var docWithIDs = input.replace(/<h([1-6])([\s\S]*?)>([\s\S]*?)(<br\/?>)?<\/h[1-6]>/g, addIDs);
-        var headings = docWithIDs.match(/<h[1-6][\s\S]*?<\/h[1-6]>/g);
-        var prevHeadLvl = 0;
-        // Optional heading a user can desire for the TOC
+        var maxHeadingLvlDepth = $('#headingDepth option:selected').val();
         var tocHeading = "";
+        // insert IDs to the heading tags
+        var docWithIDs = input.replace(/<h([1-6])([\s\S]*?)>([\s\S]*?)(<br\/?>)?<\/h[1-6]>/g, addIDs);
+        // get headings from the document
+        var headings = docWithIDs.match(/<h[1-6][\s\S]*?<\/h[1-6]>/g);
+        // at the beginning, the previous level must be zero (less than 1) because we always open at least one list at start
+        var prevHeadLvl = 0;
         if ($("#toc-heading").val()) {
             tocHeading = "<h1>" + $("#toc-heading").val() + "</h1>";
         }
+        // initiate the final TOC with the value of the heading user provided (if left blank blank string is inserted to the variable)
         var finTOC = tocHeading;
         // gets the value of the select radio button to choose list type (returns 'ol' or 'ul')
         var listType = $("input[type=radio][name=list-type]:checked").val();
@@ -120,18 +126,20 @@ function createTOC() {
             var hID = headings[i].match(/id="(.*?)"/)
             var endListItem = '';
             var curHeadLvl = headings[i].match(/<h([1-6])/)
-            var hContent = headings[i].match(/<h[1-6].*?">([\s\S]*?)<\/h[1-6]>/);
-            hContent[1] = hContent[1].replace(/<[\s\S]*?>/g, '');
-            finTOC = openCloseList(finTOC, curHeadLvl[1], prevHeadLvl, listType);
-            // this ensures no <li> item is closed when there are child lists to be closed; in case sublists 
-            // are to be closed, closing the <li> item is handled in openCloseList, in case of new sublists, 
-            // the <li> item doesn't get closed until the child list is closed too (all child lists must be 
-            // childern of the parent <li> item)
-            if (curHeadLvl == prevHeadLvl) {
-                endListItem = '</li>'
+            if (curHeadLvl[1] <= maxHeadingLvlDepth) {
+                var hContent = headings[i].match(/<h[1-6].*?">([\s\S]*?)<\/h[1-6]>/);
+                hContent[1] = hContent[1].replace(/<[\s\S]*?>/g, '');
+                finTOC = openCloseList(finTOC, curHeadLvl[1], prevHeadLvl, listType);
+                // this ensures no <li> item is closed when there are child lists to be closed; in case sublists 
+                // are to be closed, closing the <li> item is handled in openCloseList, in case of new sublists, 
+                // the <li> item doesn't get closed until the child list is closed too (all child lists must be 
+                // childern of the parent <li> item)
+                if (curHeadLvl == prevHeadLvl) {
+                    endListItem = '</li>'
+                }
+                finTOC += endListItem + '<li><a href="'+ anchorPrepend + '#' + hID[1] + '">' + hContent[1] + '</a>';
+                prevHeadLvl = curHeadLvl[1];
             }
-            finTOC += endListItem + '<li><a href="'+ anchorPrepend + '#' + hID[1] + '">' + hContent[1] + '</a>';
-            prevHeadLvl = curHeadLvl[1];
         }
     }
     catch(err) {
