@@ -13,6 +13,6 @@ Please note the IDs are generated from the content of the headings so there must
 
 In the _Output_ section, you will find the generated TOC rendered as HTML as well as inserted into the textarea as an HTML source. In the last textarea below, you'll find your document with the IDs and with the generated TOC at the beginning.
 
-In the section Options, you can choose which type of lists you would like the tool to use and you can set a string to be prepended before the IDs of the headings. This can be, for example, a URL of the page in case you want to use the TOC in some other page. The links in the TOC will the look like e.g. `https://example.org/my-page.html#my-heading`.
+In the section _Options_, you can choose which type of lists you would like the tool to use and you can set a string to be prepended before the IDs of the headings. This can be, for example, a URL of the page in case you want to use the TOC in some other page. The links in the TOC will the look like e.g. `https://example.org/my-page.html#my-heading`. Also, you can choose whether to add a heading above the TOC and the maximum heading level depth which should be used for the TOC.
 
 To use the output of this tool, copy the source code of your document with the heading IDs back to where you use your document, or just add the source of the generated TOC to your document in case you had all the IDs in the document already. You can also copy the TOC to the document with the IDs from the visual output if you have a WYSIWYG editor.
